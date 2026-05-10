@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="theme-color" content="#ffcc00">
+    <meta name="description" content="معرض الندى للسيارات NADACAR - نضع بين يديك مفاتيح الفخامة. أفضل عروض الكاش والتقسيط.">
+    <meta property="og:site_name" content="NADACAR | معرض الندى">
+    <meta property="og:title" content="معرض الندى للسيارات | تشكيلة النخبة">
+    <meta property="og:description" content="استلم سيارتك اليوم! أفضل أنظمة التقسيط واستبدال السيارات بأعلى سعر تقييم في السوق. اكتشف عروضنا الآن.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=630&q=80">
+    
     <title>معرض الندى للسيارات | NADACAR</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -28,7 +36,7 @@
         .toast.error { background: rgba(220, 53, 69, 0.95); border-color: #dc3545; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* شريط الأخبار المتحرك (من اليسار لليمين) */
+        /* شريط الأخبار المتحرك */
         .ticker-wrap { width: 100%; background-color: var(--primary-color); color: #000; padding: 10px 0; overflow: hidden; position: fixed; top: 0; z-index: 1000; font-weight: 900; box-shadow: 0 2px 15px var(--primary-glow); }
         .ticker { display: inline-block; white-space: nowrap; animation: tickerRight 30s linear infinite; }
         @keyframes tickerRight { 0% { transform: translateX(-100vw); } 100% { transform: translateX(100vw); } }
@@ -47,7 +55,7 @@
         .btn::after { content: ''; position: absolute; top: -50%; left: -60%; width: 20%; height: 200%; background: rgba(255,255,255,0.4); transform: rotate(45deg); transition: 0.5s; }
         .btn:hover::after { left: 120%; }
 
-        /* شارات الثقة (Trust Badges) */
+        /* شارات الثقة */
         .trust-badges { display: flex; justify-content: center; gap: 40px; margin-top: 50px; flex-wrap: wrap; }
         .badge { display: flex; flex-direction: column; align-items: center; gap: 10px; color: #fff; transition: 0.3s; }
         .badge:hover { transform: translateY(-5px); }
@@ -67,16 +75,17 @@
         .cars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .car-card { background: var(--bg-card); border-radius: 15px; overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,0.1); transition: 0.4s; }
         .car-card:hover { transform: translateY(-10px); border-color: var(--primary-color); box-shadow: 0 15px 40px rgba(255,204,0,0.3); }
-        .car-card img { width: 100%; height: 280px; object-fit: cover; transition: transform 0.5s; background:#000;}
+        .car-img-wrapper { width: 100%; height: 280px; overflow: hidden; background: #000; position: relative; display: flex; justify-content: center; align-items: center;}
+        .car-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
         .car-card:hover img { transform: scale(1.08); }
         .car-info { padding: 25px; }
         .car-info h4 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 10px; }
         .car-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-        .car-tags span { background: rgba(255, 204, 0, 0.1); color: var(--primary-color); padding: 5px 12px; border-radius: 5px; font-size: 0.9rem; border: 1px solid rgba(255,204,0,0.3); }
+        .car-tags span { background: rgba(255, 204, 0, 0.1); color: var(--primary-color); padding: 5px 12px; border-radius: 5px; font-size: 0.9rem; border: 1px solid rgba(255,204,0,0.3); font-weight: bold;}
         
         .skeleton { background: #222; background: linear-gradient(110deg, #222 8%, #333 18%, #222 33%); background-size: 200% 100%; animation: 1.5s shine linear infinite; border-radius: 10px; }
         .skeleton-img { height: 280px; width: 100%; }
-        .skeleton-text { height: 20px; margin: 15px; width: 80%; }
+        .skeleton-text { height: 20px; margin: 15px; width: 80%; background: rgba(255,255,255,0.1); border-radius: 5px;}
         @keyframes shine { to { background-position-x: -200%; } }
 
         /* أداة واتساب */
@@ -93,9 +102,7 @@
         .lead-content input { width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 10px; border: 1px solid #555; background: rgba(0,0,0,0.5); color: white; font-size: 1.1rem; }
         .lead-content input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-glow); }
 
-        /* ========================================= */
         /* النوافذ المنبثقة العالمية (Custom Modals) */
-        /* ========================================= */
         .custom-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
         .custom-modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -117,10 +124,10 @@
         .admin-trigger i.fa-car-side { color: white; font-size: 25px; position: absolute; bottom: 18px; left: 12px; }
         .admin-trigger i.fa-key { color: var(--primary-color); font-size: 16px; position: absolute; top: 18px; right: 15px; transform: rotate(-45deg); }
 
-        /* ========================================= */
-        /* لوحة التحكم الاحترافية (6 تبويبات)        */
-        /* ========================================= */
+        /* لوحة التحكم الاحترافية */
         .admin-panel { background: rgba(25, 25, 30, 0.95); border: 1px solid var(--primary-color); padding: 30px; border-radius: 20px; width: 95%; max-width: 1100px; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(255,204,0,0.15); position: relative; }
+        .admin-panel::-webkit-scrollbar { width: 8px; }
+        .admin-panel::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 10px; }
         
         .admin-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #444; padding-bottom: 10px; }
         .tab-btn { flex: 1; min-width: 140px; padding: 12px; background: #222; border: none; color: white; font-weight: bold; border-radius: 5px; cursor: pointer; transition: 0.3s; font-size: 0.95rem; }
@@ -179,7 +186,7 @@
     <div class="custom-modal-overlay" id="loginModal">
         <div class="custom-modal-box">
             <h3><i class="fas fa-user-shield"></i> بوابة الإدارة الآمنة</h3>
-            <p>أدخل مفتاح المرور السري (VIP) للوصول لقاعدة بيانات المعرض.</p>
+            <p style="margin-bottom: 15px; color:#aaa;">أدخل مفتاح المرور السري (VIP) للوصول لقاعدة بيانات المعرض.</p>
             <input type="password" id="adminPassword" placeholder="•••••••••">
             <div class="modal-btns">
                 <button class="btn-confirm" onclick="verifyAdmin()">تسجيل الدخول</button>
@@ -191,7 +198,7 @@
     <div class="custom-modal-overlay" id="alertModal">
         <div class="custom-modal-box">
             <h3 id="alertTitle"><i class="fas fa-medal"></i> خطوة ممتازة!</h3>
-            <p id="alertMessage">لقد تم استلام طلبك. فريق المبيعات لدينا يجهز لك الآن عرضاً حصرياً وسنقوم بالتواصل معك في أقرب وقت.</p>
+            <p id="alertMessage" style="margin-bottom: 15px; color:#aaa;">لقد تم استلام طلبك. فريق المبيعات لدينا يجهز لك الآن عرضاً حصرياً وسنقوم بالتواصل معك في أقرب وقت.</p>
             <div class="modal-btns">
                 <button class="btn-confirm" onclick="closeModal('alertModal')">حسناً، بانتظاركم</button>
             </div>
@@ -396,6 +403,8 @@
 
     <script>
         let APPS_SCRIPT_URL = localStorage.getItem('appScriptUrl') || ""; 
+        // صورة احتياطية تظهر عند فشل جلب صورة السيارة الأصيلة لحفظ المظهر
+        const DEFAULT_FALLBACK_IMG = "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=600&q=80";
 
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
@@ -438,11 +447,12 @@
             fetchSiteData();
         }
 
-        // --- نظام التحكم في النصوص (CMS) ---
+        // --- نظام التحكم في النصوص (CMS) مع كاسر الكاش لـ GitHub ---
         async function fetchSiteData() {
             if(!APPS_SCRIPT_URL) return;
             try {
-                const response = await fetch(APPS_SCRIPT_URL + "?action=getTexts");
+                // إضافة متغير زمني لمنع متصفحات و GitHub من عمل Cache للمعلومات القديمة
+                const response = await fetch(APPS_SCRIPT_URL + "?action=getTexts&t=" + new Date().getTime());
                 const texts = await response.json();
                 if(texts.mainTitle) document.getElementById('siteMainTitle').innerHTML = texts.mainTitle;
                 if(texts.subTitle) document.getElementById('siteSubTitle').innerHTML = texts.subTitle;
@@ -454,7 +464,7 @@
         async function fetchAdminTexts() {
             if(!APPS_SCRIPT_URL) return;
             try {
-                const response = await fetch(APPS_SCRIPT_URL + "?action=getTexts");
+                const response = await fetch(APPS_SCRIPT_URL + "?action=getTexts&t=" + new Date().getTime());
                 const texts = await response.json();
                 document.getElementById('adminMainTitle').value = texts.mainTitle || "معرض الندى للسيارات";
                 document.getElementById('adminSubTitle').value = texts.subTitle || "نضع بين يديك مفاتيح الفخامة...";
@@ -474,40 +484,51 @@
                 ticker: document.getElementById('adminTicker').value
             };
             try {
-                await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                // استخدام text/plain لتخطي حظر متصفحات الجوال والـ CORS Error
+                await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
                 showToast("تم تحديث نصوص الموقع بنجاح!");
                 fetchSiteData(); 
             } catch(e) { showToast("حدث خطأ", "error"); }
             btn.innerHTML = '<i class="fas fa-save"></i> حفظ وتطبيق على الموقع فوراً'; btn.disabled = false;
         }
 
-        // --- السيارات وعرضها ---
+        // --- السيارات وعرضها (إصلاح تكرار الصور) ---
         async function fetchCars() {
             if(!APPS_SCRIPT_URL) return;
             try {
-                const response = await fetch(APPS_SCRIPT_URL + "?action=getCars");
+                const response = await fetch(APPS_SCRIPT_URL + "?action=getCars&t=" + new Date().getTime());
                 const data = await response.json();
                 const container = document.getElementById('carsContainer');
                 const tbody = document.querySelector('#manageTable tbody');
                 
-                if(data.length === 0) {
-                    container.innerHTML = '<h3 style="grid-column: 1/-1; text-align: center; color: #fff;">جاري تحديث قائمة السيارات...</h3>';
-                    tbody.innerHTML = '<tr><td colspan="4">لا توجد سيارات مضافة حالياً.</td></tr>';
+                if(!data || data.length === 0) {
+                    container.innerHTML = '<h3 style="grid-column: 1/-1; text-align: center; color: #fff;">لا توجد سيارات مضافة حالياً.</h3>';
+                    tbody.innerHTML = '<tr><td colspan="4">لا توجد سيارات.</td></tr>';
                     return;
                 }
                 
                 container.innerHTML = ''; tbody.innerHTML = '';
 
+                // خوارزمية منع التكرار: التأكد من عدم عرض سيارتين بنفس الاسم
+                const uniqueCars = [];
+                const seenTitles = new Set();
                 data.reverse().forEach(car => {
+                    const carKey = car.title.trim().toLowerCase();
+                    if (!seenTitles.has(carKey)) {
+                        seenTitles.add(carKey);
+                        uniqueCars.push(car);
+                    }
+                });
+
+                uniqueCars.forEach(car => {
                     const tagsHtml = car.tags ? car.tags.split(',').map(tag => `<span>${tag.trim()}</span>`).join('') : '';
-                    
-                    // حماية الصورة الافتراضية لمنع ظهور علامة صورة مكسورة
-                    const safeImageStr = car.image || '';
-                    const fallBackImg = "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&q=80";
+                    const safeImageStr = car.image || DEFAULT_FALLBACK_IMG;
 
                     container.innerHTML += `
                         <div class="car-card">
-                            <img src="${safeImageStr}" alt="${car.title}" onerror="this.src='${fallBackImg}'; this.onerror=null;">
+                            <div class="car-img-wrapper">
+                                <img src="${safeImageStr}" alt="${car.title}" onerror="this.src='${DEFAULT_FALLBACK_IMG}';">
+                            </div>
                             <div class="car-info">
                                 <h4>${car.title}</h4>
                                 <p style="color: #fff; font-weight: bold; margin-bottom: 10px;">${car.price}</p>
@@ -515,14 +536,14 @@
                             </div>
                         </div>`;
                     
-                    // تجهيز الداتا للنافذة المنبثقة للتعديل (هروب النص لتجنب أخطاء الكوتيشن)
+                    // الهروب الذكي للنصوص لتفادي كسر أكواد التعديل في النافذة المنبثقة
                     const safeTitle = car.title ? car.title.replace(/'/g, "\\'") : '';
                     const safePrice = car.price ? car.price.replace(/'/g, "\\'") : '';
                     const safeTags = car.tags ? car.tags.replace(/'/g, "\\'") : '';
 
                     tbody.innerHTML += `
                         <tr>
-                            <td><img src="${safeImageStr}" onerror="this.src='${fallBackImg}'; this.onerror=null;"></td>
+                            <td><img src="${safeImageStr}" onerror="this.src='${DEFAULT_FALLBACK_IMG}';"></td>
                             <td>${car.title}</td>
                             <td>${car.price}</td>
                             <td>
@@ -531,7 +552,7 @@
                             </td>
                         </tr>`;
                 });
-            } catch (error) {}
+            } catch (error) { console.error(error); }
         }
 
         // --- نظام التعديل الجديد (Edit Feature) ---
@@ -541,13 +562,11 @@
             document.getElementById('editCarPrice').value = price;
             document.getElementById('editCarTags').value = tags;
             
-            // نعرض الصورة القديمة مبدئياً
             document.getElementById('editImgPreview').src = image;
             document.getElementById('editImgPreview').style.display = 'block';
             
-            // نصفر حقل رفع الملف ليتمكن من رفع جديد لو أراد
             document.getElementById('editFileInput').value = '';
-            document.getElementById('editImageBase64').value = image; // نحتفظ بالصورة القديمة افتراضياً
+            document.getElementById('editImageBase64').value = image; 
             
             document.getElementById('editCarModal').classList.add('active');
         }
@@ -568,35 +587,44 @@
             };
 
             try {
-                await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
                 showToast("تم تعديل السيارة بنجاح!");
                 closeModal('editCarModal');
-                fetchCars(); // تحديث القائمة
+                setTimeout(() => fetchCars(), 1000); 
             } catch(e) { showToast("حدث خطأ أثناء التعديل", "error"); }
             
             btn.innerHTML = '<i class="fas fa-save"></i> حفظ التعديلات'; btn.disabled = false;
         }
 
-        // --- الحجوزات (CRM Manger) ---
+        // --- الحجوزات (حل مشكلة عدم ظهور الإحصائيات) ---
         async function fetchLeads() {
             if(!APPS_SCRIPT_URL) return;
             try {
-                const response = await fetch(APPS_SCRIPT_URL + "?action=getLeads");
+                const response = await fetch(APPS_SCRIPT_URL + "?action=getLeads&t=" + new Date().getTime());
                 const data = await response.json();
                 const tbody = document.querySelector('#leadsTable tbody');
                 tbody.innerHTML = '';
                 
                 document.getElementById('statTotal').innerText = data.length;
                 let todayCount = 0;
-                const todayStr = new Date().toLocaleDateString('en-GB');
+                const now = new Date(); // مستشعر التاريخ الدقيق للمقارنة السليمة
 
                 if(data.length === 0) { tbody.innerHTML = `<tr><td colspan="4">لا توجد طلبات.</td></tr>`; return; }
 
                 data.reverse().forEach(lead => {
-                    const dateObj = new Date(lead.date);
-                    if(dateObj.toLocaleDateString('en-GB') === todayStr) todayCount++;
-                    const formattedDate = dateObj.toLocaleDateString('ar-EG') + '<br><small style="color:#aaa;">' + dateObj.toLocaleTimeString('ar-EG') + '</small>';
-                    const waLink = `https://wa.me/2${lead.phone.replace(/^0+/, '')}`; 
+                    let formattedDate = lead.date;
+                    try {
+                        const dateObj = new Date(lead.date);
+                        if (!isNaN(dateObj)) {
+                            formattedDate = dateObj.toLocaleDateString('ar-EG') + '<br><small style="color:#aaa;">' + dateObj.toLocaleTimeString('ar-EG') + '</small>';
+                            // التأكد إذا كان الحجز قد تم اليوم (يصلح العطل السابق بالعداد)
+                            if (dateObj.toDateString() === now.toDateString()) { todayCount++; }
+                        }
+                    } catch(e) {}
+
+                    const cleanPhone = lead.phone.replace(/[^0-9]/g, '');
+                    const waPhone = cleanPhone.startsWith('0') ? '2' + cleanPhone : '20' + cleanPhone;
+                    const waLink = `https://wa.me/${waPhone}`; 
                     
                     tbody.innerHTML += `
                         <tr class="lead-row">
@@ -616,15 +644,11 @@
             rows.forEach(row => {
                 let name = row.querySelector(".lead-name").innerText.toUpperCase();
                 let phone = row.querySelector(".lead-phone").innerText.toUpperCase();
-                if (name.indexOf(input) > -1 || phone.indexOf(input) > -1) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
+                if (name.indexOf(input) > -1 || phone.indexOf(input) > -1) { row.style.display = ""; } else { row.style.display = "none"; }
             });
         }
 
-        // --- خوارزمية ضغط الصور القوية (الحل الجذري لمشكلة الرفع) ---
+        // --- خوارزمية ضغط الصور القاسية (لحل مشكلة رفض جوجل للصور الطويلة نهائياً) ---
         function compressImageCore(file, previewId, base64Id) {
             if (!file) return;
             const reader = new FileReader();
@@ -634,8 +658,8 @@
                 img.src = e.target.result;
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    // التصغير إلى 600 بكسل لضمان عدم تجاوز حد (50,000) حرف في خلية جوجل شيت!
-                    const MAX_DIM = 600; 
+                    // التصغير العنيف إلى 450 بكسل يضمن عدم تجاوز الحد المسموح في جوجل شيت!
+                    const MAX_DIM = 450; 
                     let w = img.width; let h = img.height;
                     
                     if (w > h) { if (w > MAX_DIM) { h *= MAX_DIM / w; w = MAX_DIM; } }
@@ -645,8 +669,8 @@
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, w, h);
                     
-                    // جودة 0.5 تعتبر كافية جداً للموبايل وتمنع فشل الرفع نهائياً
-                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.5); 
+                    // جودة 0.35 خفيفة جداً للموبايل وسريعة وتمنع أي فشل أثناء الرفع
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.35); 
                     
                     document.getElementById(previewId).src = compressedBase64;
                     document.getElementById(previewId).style.display = 'block';
@@ -662,7 +686,7 @@
             e.preventDefault();
             if(!APPS_SCRIPT_URL) { showToast("قم بضبط المزامنة أولاً!", "error"); return; }
             const base64Img = document.getElementById('imageBase64').value;
-            if(!base64Img) { showToast("انتظر ثانية حتى يتم معالجة الصورة", "error"); return; }
+            if(!base64Img) { showToast("انتظر ثانية حتى تتم معالجة الصورة", "error"); return; }
 
             const btn = document.getElementById('saveCarBtn');
             btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> جاري النشر..."; btn.disabled = true;
@@ -676,12 +700,12 @@
             };
 
             try {
-                await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
                 showToast("تمت الإضافة! السيارة الآن متاحة للعملاء.");
                 document.getElementById('addCarForm').reset();
                 document.getElementById('imgPreview').style.display = 'none';
                 document.getElementById('imageBase64').value = '';
-                fetchCars();
+                setTimeout(() => fetchCars(), 1000); 
             } catch(e) { showToast("حدث خطأ أثناء الرفع", "error"); }
             
             btn.innerHTML = '<i class="fas fa-rocket"></i> إطلاق السيارة'; btn.disabled = false;
@@ -694,9 +718,9 @@
             if(!rowToDelete || !APPS_SCRIPT_URL) return;
             showToast("جاري الحذف...");
             try {
-                await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: "deleteCar", row: rowToDelete }) });
+                await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: "deleteCar", row: rowToDelete }) });
                 showToast("تم الحذف بنجاح.");
-                fetchCars();
+                setTimeout(() => fetchCars(), 1000); 
             } catch(e) { showToast("خطأ", "error"); }
         });
 
@@ -707,9 +731,9 @@
                 document.getElementById('alertModal').classList.add('active');
                 document.getElementById('leadForm').reset(); return;
             }
-            btn.innerHTML = "لحظات..."; btn.disabled = true;
+            btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> لحظات..."; btn.disabled = true;
             try {
-                await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: "addLead", name: document.getElementById('leadName').value, phone: document.getElementById('leadPhone').value }) });
+                await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: "addLead", name: document.getElementById('leadName').value, phone: document.getElementById('leadPhone').value }) });
                 document.getElementById('alertModal').classList.add('active');
                 document.getElementById('leadForm').reset();
                 if(document.getElementById('adminDashboard').classList.contains('active')) fetchLeads(); 
@@ -724,6 +748,13 @@
             document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
             document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
         }, 1000);
+
+        // نظام الحفظ التلقائي (Auto-Sync) والمزامنة الحية لتحديث واجهة الموقع كل 45 ثانية
+        setInterval(() => {
+            if (APPS_SCRIPT_URL && !document.getElementById('adminDashboard').classList.contains('active')) {
+                fetchCars(); 
+            }
+        }, 45000);
 
         window.onload = function() { fetchSiteData(); };
     </script>
