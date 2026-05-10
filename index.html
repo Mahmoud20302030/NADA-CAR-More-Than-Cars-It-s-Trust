@@ -1,0 +1,838 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <meta name="theme-color" content="#ffcc00">
+    <meta name="description" content="معرض الندى للسيارات NADACAR - نضع بين يديك مفاتيح الفخامة. أفضل عروض الكاش والتقسيط للسيارات الزيرو والمستعملة بضمان شامل.">
+    
+    <meta property="og:site_name" content="NADACAR | معرض الندى">
+    <meta property="og:title" content="معرض الندى للسيارات | تشكيلة النخبة">
+    <meta property="og:description" content="استلم سيارتك اليوم! أفضل أنظمة التقسيط واستبدال السيارات بأعلى سعر تقييم في السوق. اكتشف عروضنا الآن.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=630&q=80">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="معرض الندى للسيارات | NADACAR">
+    <meta name="twitter:description" content="اكتشف أحدث السيارات الفارهة والاقتصادية. عروض كاش وتقسيط لا تقبل المنافسة.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AutoDealer",
+      "name": "معرض الندى للسيارات | NADACAR",
+      "image": "https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3",
+      "description": "معرض سيارات لبيع وشراء واستبدال السيارات بأفضل أنظمة التقسيط.",
+      "telephone": "+201221170884",
+      "address": { "@type": "PostalAddress", "addressCountry": "EG" },
+      "priceRange": "$$$"
+    }
+    </script>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚘</text></svg>">
+    
+    <title>معرض الندى للسيارات | NADACAR</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* المتغيرات والألوان */
+        :root {
+            --primary-color: #ffcc00;
+            --primary-hover: #e6b800;
+            --primary-glow: rgba(255, 204, 0, 0.6);
+            --bg-dark: #010408;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --text-light: #ffffff;
+            --glass-bg: rgba(20, 20, 25, 0.85);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-light); overflow-x: hidden; scroll-behavior: smooth; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* نظام الإشعارات */
+        .toast-container { position: fixed; top: 60px; left: 50%; transform: translateX(-50%); z-index: 100000; display: flex; flex-direction: column; gap: 10px; width: 90%; max-width: 400px; pointer-events: none;}
+        .toast { background: rgba(37, 211, 102, 0.95); color: white; padding: 15px 30px; border-radius: 10px; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.5); animation: slideDown 0.5s ease-out forwards; backdrop-filter: blur(5px); border: 1px solid #25d366; text-align: center; }
+        .toast.error { background: rgba(220, 53, 69, 0.95); border-color: #dc3545; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* شريط الأخبار المتحرك */
+        .ticker-wrap { width: 100%; height: 40px; background-color: var(--primary-color); color: #000; display: flex; align-items: center; overflow: hidden; position: fixed; top: 0; z-index: 1000; font-weight: 900; box-shadow: 0 2px 15px var(--primary-glow); border-bottom: 1px solid rgba(255,255,255,0.2);}
+        .ticker { display: inline-block; white-space: nowrap; animation: tickerRight 30s linear infinite; }
+        .ticker:hover { animation-play-state: paused; }
+        @keyframes tickerRight { 0% { transform: translateX(-100vw); } 100% { transform: translateX(100vw); } }
+
+        /* مؤشر المزامنة الحية */
+        .live-sync-indicator { position: fixed; top: 50px; right: 20px; z-index: 999; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: bold; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 20px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; opacity: 0;}
+        .live-sync-indicator.active { opacity: 1; }
+        .sync-dot { width: 8px; height: 8px; background-color: #25d366; border-radius: 50%; animation: pulseSync 1.5s infinite; }
+        @keyframes pulseSync { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 8px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        /* 👑 الهيدر الثابت: اللوجو التسويقي الفخم (Gold Foil Effect) 👑 */
+        .main-header { position: fixed; top: 40px; left: 0; width: 100%; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; z-index: 990; background: linear-gradient(to bottom, rgba(1,4,8,0.95) 0%, rgba(1,4,8,0) 100%); pointer-events: none; }
+        .nadacar-logo { 
+            font-size: 2.8rem; font-weight: 900; display: flex; align-items: center; gap: 12px; letter-spacing: 3px; 
+            pointer-events: auto; text-decoration: none; font-family: 'Arial Black', Impact, sans-serif;
+            /* تأثير الذهب الخالص */
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.9)); position: relative; overflow: hidden; padding-right: 10px;
+        }
+        /* لمعة الذهب المتحركة (Shine Animation) */
+        .nadacar-logo::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg); animation: shineLogo 6s infinite;
+        }
+        .nadacar-logo i { 
+            color: var(--primary-color); -webkit-text-fill-color: initial; 
+            font-size: 3.2rem; filter: drop-shadow(0 0 15px var(--primary-glow)); 
+            animation: floatLogo 3s ease-in-out infinite; margin-left: 5px;
+        }
+        @keyframes shineLogo { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+        @keyframes floatLogo { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0px); } }
+
+        /* الواجهة الرئيسية */
+        .hero { height: 100vh; background: linear-gradient(rgba(1, 4, 8, 0.75), rgba(1, 4, 8, 0.95)), url('https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; position: relative; margin-top: 40px;}
+        .hero h1 { font-size: 5.5rem; font-weight: 900; color: var(--primary-color); margin-bottom: 20px; text-shadow: 0 5px 25px rgba(255,204,0,0.5); letter-spacing: 2px; }
+        .hero p { font-size: 1.8rem; max-width: 900px; margin-bottom: 40px; color: #fff; font-weight: 700; line-height: 1.6; }
+        .btn { padding: 15px 40px; font-size: 1.2rem; font-weight: bold; color: #000; background-color: var(--primary-color); border: none; border-radius: 50px; cursor: pointer; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 5px 20px var(--primary-glow); display: inline-flex; align-items: center; justify-content: center; gap: 10px; position: relative; overflow: hidden; }
+        .btn:hover { background-color: var(--primary-hover); transform: translateY(-5px); box-shadow: 0 8px 30px var(--primary-glow); }
+        .btn::after { content: ''; position: absolute; top: -50%; left: -60%; width: 20%; height: 200%; background: rgba(255,255,255,0.4); transform: rotate(45deg); transition: 0.5s; }
+        .btn:hover::after { left: 120%; }
+        .btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* شارات الثقة */
+        .trust-badges { display: flex; justify-content: center; gap: 40px; margin-top: 50px; flex-wrap: wrap; }
+        .badge { display: flex; flex-direction: column; align-items: center; gap: 10px; color: #fff; transition: 0.3s; }
+        .badge:hover { transform: translateY(-5px) scale(1.05); }
+        .badge i { font-size: 2.5rem; color: var(--primary-color); text-shadow: 0 0 15px var(--primary-glow); }
+        .badge span { font-weight: bold; font-size: 1.1rem; }
+
+        /* العرض الترويجي */
+        .promo-section { padding: 60px 20px; background: linear-gradient(45deg, #0a0a0a, #111); text-align: center; border-top: 2px solid var(--primary-color); border-bottom: 2px solid var(--primary-color); position: relative;}
+        .promo-section h2 { color: var(--primary-color); margin-bottom: 20px; font-size: 2.5rem; text-shadow: 0 0 10px var(--primary-glow); }
+        .countdown { display: flex; justify-content: center; gap: 20px; margin-top: 30px; direction: ltr; flex-wrap: wrap;}
+        .time-box { background: var(--bg-card); border: 2px solid var(--primary-color); padding: 20px; border-radius: 15px; min-width: 110px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); backdrop-filter: blur(4px);}
+        .time-box span { display: block; font-size: 2.8rem; font-weight: 900; color: var(--primary-color); }
+
+        /* قسم السيارات */
+        .gallery { padding: 80px 10%; min-height: 500px; }
+        .section-title { text-align: center; font-size: 3rem; margin-bottom: 50px; color: var(--primary-color); text-shadow: 0 0 10px var(--primary-glow); }
+        .cars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        
+        .car-card { background: var(--bg-card); border-radius: 15px; overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s; backdrop-filter: blur(10px); display: flex; flex-direction: column;}
+        .car-card:hover { transform: translateY(-10px) !important; border-color: var(--primary-color); box-shadow: 0 15px 40px rgba(255,204,0,0.3); z-index: 2;}
+        
+        /* الشريط التسويقي للسيارات (Ribbon) */
+        .car-ribbon { position: absolute; top: 15px; right: -35px; background: #dc3545; color: white; padding: 5px 40px; transform: rotate(45deg); font-weight: bold; z-index: 10; box-shadow: 0 2px 10px rgba(0,0,0,0.5); font-size: 0.9rem; letter-spacing: 1px;}
+        .car-ribbon.vip { background: var(--primary-color); color: #000; }
+        
+        /* شارة الثقة المصغرة على الصورة */
+        .verified-badge { position: absolute; bottom: 10px; left: 10px; background: rgba(37, 211, 102, 0.9); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; z-index: 10; display: flex; align-items: center; gap: 5px; backdrop-filter: blur(2px);}
+
+        .car-img-wrapper { width: 100%; height: 280px; overflow: hidden; background: #000; position: relative;}
+        .car-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .car-card:hover img { transform: scale(1.1); }
+        .car-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .car-info h4 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 10px; line-height: 1.3;}
+        .car-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 15px;}
+        .car-tags span { background: rgba(255, 204, 0, 0.1); color: var(--primary-color); padding: 5px 12px; border-radius: 5px; font-size: 0.9rem; border: 1px solid rgba(255,204,0,0.3); font-weight: bold;}
+        
+        .fade-up { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .skeleton { background: linear-gradient(110deg, #222 8%, #333 18%, #222 33%); background-size: 200% 100%; animation: 1.5s shine linear infinite; border-radius: 10px; min-height: 400px; border: none;}
+        .skeleton-img { height: 280px; width: 100%; }
+        .skeleton-text { height: 20px; margin: 15px; width: 80%; border-radius: 5px; background: rgba(255,255,255,0.1);}
+
+        /* أداة واتساب */
+        .wa-widget { position: fixed; bottom: 30px; right: 30px; z-index: 999; display: flex; flex-direction: column; align-items: flex-end; gap: 15px; }
+        .wa-options { display: none; flex-direction: column; gap: 10px; background: rgba(2, 5, 10, 0.95); padding: 15px; border-radius: 15px; border: 1px solid #25d366; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .wa-options.show { display: flex; animation: fadeIn 0.3s ease; }
+        .wa-option { display: flex; align-items: center; gap: 10px; color: white; text-decoration: none; padding: 10px 20px; background: #25d366; border-radius: 8px; font-weight: bold; direction: ltr; transition: 0.3s; }
+        .wa-option:hover { background: #1ebe57; transform: scale(1.05); }
+        .floating-wa-btn { background-color: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 35px; border: none; cursor: pointer; animation: pulse 2s infinite; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);}
+
+        /* زر العودة للأعلى */
+        .scroll-top-btn { position: fixed; bottom: 30px; left: 30px; background: var(--primary-color); color: #000; width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer; font-size: 20px; display: none; justify-content: center; align-items: center; z-index: 998; box-shadow: 0 5px 15px var(--primary-glow); transition: 0.3s; }
+        .scroll-top-btn.show { display: flex; animation: fadeIn 0.3s; }
+        .scroll-top-btn:hover { transform: translateY(-5px); background: var(--primary-hover); }
+
+        /* نموذج الحجز */
+        .lead-section { padding: 80px 20px; background: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover fixed; position: relative; }
+        .lead-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(1, 4, 8, 0.85); }
+        .lead-content { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; text-align: center; background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; border: 1px solid var(--primary-color); backdrop-filter: blur(10px); box-shadow: 0 15px 35px rgba(0,0,0,0.5);}
+        .lead-content input { width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 10px; border: 1px solid #555; background: rgba(0,0,0,0.5); color: white; font-size: 1.1rem; transition: 0.3s; }
+        .lead-content input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 15px var(--primary-glow); background: rgba(0,0,0,0.8);}
+
+        /* الإثبات الاجتماعي التسويقي (FOMO Popup) */
+        .fomo-popup { position: fixed; bottom: 120px; left: -400px; background: rgba(20, 20, 25, 0.95); border-right: 4px solid #25d366; padding: 15px 20px; border-radius: 10px; display: flex; align-items: center; gap: 15px; z-index: 997; box-shadow: 0 10px 30px rgba(0,0,0,0.6); transition: 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); color: white; width: max-content; max-width: 90vw; }
+        .fomo-popup.show { left: 30px; }
+        .fomo-popup i { color: #25d366; font-size: 28px; animation: pulse 2s infinite; }
+        .fomo-popup b { color: var(--primary-color); font-size: 1.1rem;}
+        @media (max-width: 768px) { .fomo-popup.show { left: 10px; bottom: 100px; } }
+
+        /* النوافذ المنبثقة العالمية */
+        .custom-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100000; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
+        .custom-modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
+        
+        .custom-modal-box { background: var(--glass-bg); border: 1px solid var(--primary-color); padding: 30px; border-radius: 20px; width: 90%; max-width: 450px; text-align: center; box-shadow: 0 10px 40px rgba(255,204,0,0.2); transform: translateY(-20px); transition: 0.3s; position: relative;}
+        .custom-modal-overlay.active .custom-modal-box { transform: translateY(0); }
+        .custom-modal-box h3 { color: var(--primary-color); margin-bottom: 15px; font-size: 1.6rem; }
+        .custom-modal-box input { width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #555; background: #111; color: white; text-align: center; font-size: 1.2rem;}
+        .custom-modal-box input:focus { outline: none; border-color: var(--primary-color); }
+        .modal-btns { display: flex; gap: 10px; justify-content: center; margin-top: 20px;}
+        .modal-btns button { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
+        .btn-confirm { background: var(--primary-color); color: #000; }
+        .btn-confirm:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 5px 15px var(--primary-glow);}
+        .btn-cancel { background: #444; color: white; }
+        .btn-cancel:hover { background: #555; transform: translateY(-2px); }
+
+        /* زر الإدارة الاحترافي */
+        .admin-trigger { position: fixed; bottom: 100px; left: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #111, #222); border: 2px solid var(--primary-color); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 996; box-shadow: 0 0 15px rgba(255, 204, 0, 0.3); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .admin-trigger:hover { transform: scale(1.15) rotate(15deg); box-shadow: 0 0 25px var(--primary-glow); }
+        .admin-trigger i.fa-car-side { color: white; font-size: 20px; position: absolute; bottom: 12px; left: 8px; }
+        .admin-trigger i.fa-key { color: var(--primary-color); font-size: 12px; position: absolute; top: 12px; right: 10px; transform: rotate(-45deg); }
+
+        /* لوحة التحكم الاحترافية */
+        .admin-panel { background: rgba(20, 20, 25, 0.98); border: 1px solid var(--primary-color); padding: 30px; border-radius: 20px; width: 95%; max-width: 1100px; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 50px rgba(255,204,0,0.15); position: relative; }
+        .admin-panel::-webkit-scrollbar { width: 8px; }
+        .admin-panel::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 10px; }
+        
+        .admin-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #444; padding-bottom: 10px; }
+        .tab-btn { flex: 1; min-width: 140px; padding: 12px; background: #222; border: none; color: white; font-weight: bold; border-radius: 5px; cursor: pointer; transition: 0.3s; font-size: 0.95rem; }
+        .tab-btn:hover { background: #333; }
+        .tab-btn.active { background: var(--primary-color); color: #000; box-shadow: 0 0 15px var(--primary-glow); }
+        .tab-content { display: none; animation: fadeIn 0.4s ease; }
+        .tab-content.active { display: block; }
+
+        .admin-form input, .admin-form textarea { width: 100%; padding: 15px; margin-bottom: 15px; background: #111; border: 1px solid #555; color: white; border-radius: 8px; font-size: 1rem; transition: 0.3s; }
+        .admin-form input:focus, .admin-form textarea:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 10px rgba(255,204,0,0.2); }
+        .admin-form button { width: 100%; padding: 15px; background: var(--primary-color); border: none; font-weight: bold; cursor: pointer; border-radius: 8px; font-size: 1.2rem; transition: 0.3s; }
+        .admin-form button:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-2px); }
+        .admin-form button:disabled { opacity: 0.7; cursor: not-allowed; }
+        
+        #fileInput { background: transparent; border: 1px dashed var(--primary-color); cursor: pointer; padding: 20px; text-align: center; }
+        .image-preview { width: 100%; height: 250px; object-fit: contain; display: none; margin-bottom: 15px; border: 1px solid #555; border-radius: 8px; background: #000; }
+        
+        /* إحصائيات CRM المتقدمة */
+        .crm-dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .stat-card { background: linear-gradient(135deg, #222, #111); border: 1px solid #444; border-radius: 10px; padding: 20px; text-align: center; border-bottom: 3px solid var(--primary-color); transition: 0.3s; }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .stat-card h3 { color: #aaa; font-size: 1rem; margin-bottom: 10px; }
+        .stat-card span { font-size: 2.5rem; font-weight: 900; color: var(--primary-color); }
+        .search-bar { width: 100%; padding: 15px; border-radius: 8px; border: 1px solid var(--primary-color); background: #111; color: white; margin-bottom: 15px; font-size: 1.1rem; }
+        
+        .manage-table { width: 100%; border-collapse: collapse; margin-top: 15px; color: white; background: #111; border-radius: 8px; overflow: hidden; }
+        .manage-table th, .manage-table td { padding: 12px; border: 1px solid #333; text-align: center; vertical-align: middle;}
+        .manage-table th { background: #222; color: var(--primary-color); font-size: 1.1rem; }
+        .manage-table tr:hover { background: #1a1a1a; }
+        .manage-table img { width: 80px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #444;}
+        .action-btn { padding: 8px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 2px; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 5px;}
+        .del-btn { background: #dc3545; color: white; }
+        .del-btn:hover { background: #c82333; transform: scale(1.05); }
+
+        .close-admin { position: absolute; top: 15px; right: 25px; font-size: 35px; color: white; cursor: pointer; transition: 0.3s; z-index: 10; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255,0,0,0.1); border: 1px solid rgba(255,0,0,0.3);}
+        .close-admin:hover { color: #ff4d4d; transform: rotate(90deg); background: rgba(255,0,0,0.2);}
+
+        /* =========================================================
+           الفوتر الدائري المرفق - SOVEREIGN EAGLE (ممنوع التعديل)
+           ========================================================= */
+        .footer-wrapper { padding: 80px 20px; background: rgba(2, 5, 10, 0.98); border-top: 3px solid var(--primary-color, #E5C158); display: flex; justify-content: center; align-items: center; margin-top: auto; position: relative; overflow: hidden; height: 550px; flex-shrink: 0; box-shadow: 0 -15px 50px rgba(0,0,0,0.8); }
+        .circle-container { position: relative; width: 480px; height: 480px; display: flex; justify-content: center; align-items: center; }
+        .rotating-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: rotateText 22s linear infinite; z-index: 2; }
+        @keyframes rotateText { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .text-path-style { font-size: 20px; fill: #ffffff; font-family: 'Arial Black', Impact, sans-serif; letter-spacing: 6px; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.9)); }
+        .name-highlight { font-size: 28px; font-weight: 900; fill: var(--primary-color, #E5C158); letter-spacing: 4px; text-transform: uppercase; }
+        .center-prayer { position: relative; width: 340px; text-align: center; font-size: 2.2rem; font-weight: 900; color: var(--primary-color, #E5C158); line-height: 1.8; z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; text-shadow: 0 1px 0 #cca942, 0 2px 0 #b3943a, 0 3px 0 #997e31, 0 4px 0 #806929, 0 5px 0 #665421, 0 10px 20px rgba(0,0,0,0.9), 0 0 40px var(--primary-glow, rgba(229, 193, 88, 0.4)); }
+        .center-prayer::before { content: "🦅"; font-size: 2.2rem; margin-bottom: 15px; opacity: 0.95; filter: drop-shadow(0 0 10px var(--primary-glow, rgba(229, 193, 88, 0.4))); }
+        .center-prayer::after { content: "🦅"; font-size: 2.2rem; margin-top: 15px; opacity: 0.95; filter: drop-shadow(0 0 10px var(--primary-glow, rgba(229, 193, 88, 0.4))); transform: scaleX(-1); }
+        
+        @media (max-width: 768px) { 
+            .main-header { padding: 10px 15px; background: rgba(1,4,8,0.9); border-bottom: 1px solid rgba(255,204,0,0.2);}
+            .nadacar-logo { font-size: 2rem;} 
+            .nadacar-logo i { font-size: 2.2rem;} 
+            .hero { margin-top: 60px; }
+            .hero h1 { font-size: 3.5rem; } 
+            .circle-container { transform: scale(0.65); } 
+            .footer-wrapper { height: 400px; padding: 20px; } 
+            .admin-trigger { width: 45px; height: 45px; left: 20px; bottom: 90px;} 
+            .tab-btn { min-width: 100%; } 
+            .section-title { font-size: 2.2rem; }
+            .hero p { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="live-sync-indicator" id="syncIndicator" title="النظام متصل بالقاعدة المركزية وجاري التحديث تلقائياً">
+        <div class="sync-dot"></div> متصل
+    </div>
+
+    <div id="fomoPopup" class="fomo-popup">
+        <i class="fas fa-check-circle"></i>
+        <div class="fomo-text">
+            <span id="fomoName">محمد أ.</span> قام بحجز تجربة قيادة لسيارة <br>
+            <b id="fomoCar">كيا سبورتاج</b> <small style="color:#aaa;">منذ <span id="fomoTime">5</span> دقائق</small>
+        </div>
+    </div>
+
+    <div class="custom-modal-overlay" id="exitModal">
+        <div class="custom-modal-box">
+            <div class="close-admin" onclick="closeModal('exitModal')" style="top:5px; right:5px; width:30px; height:30px; font-size:25px;">×</div>
+            <h3 style="color:#dc3545; font-size: 2rem;"><i class="fas fa-gift"></i> انتظر لحظة!</h3>
+            <p style="margin-bottom: 20px; color: #ddd; font-size: 1.2rem;">قبل أن تغادر، احصل على <b>خصم خاص</b> أو <b>تأمين شامل مجاني</b> عند حجزك اليوم.</p>
+            <button class="btn-confirm" style="width: 100%; padding: 15px; font-size: 1.2rem;" onclick="closeModal('exitModal'); document.getElementById('leadName').focus();"><i class="fas fa-bolt"></i> تفعيل العرض الآن</button>
+        </div>
+    </div>
+
+    <div class="ticker-wrap"><div class="ticker" id="siteTicker">🌟 معرض الندى للسيارات | جاري تحميل أحدث العروض والخصومات... 🌟</div></div>
+
+    <header class="main-header">
+        <a href="#" class="nadacar-logo"><i class="fas fa-car-side"></i> NADA<span>CAR</span></a>
+    </header>
+
+    <div class="custom-modal-overlay" id="loginModal">
+        <div class="custom-modal-box">
+            <h3><i class="fas fa-user-shield"></i> بوابة الإدارة الآمنة</h3>
+            <p style="margin-bottom: 15px; color: #ccc;">أدخل مفتاح المرور السري (VIP) للوصول لقاعدة بيانات المعرض.</p>
+            <input type="password" id="adminPassword" placeholder="•••••••••" onkeypress="if(event.key === 'Enter') verifyAdmin()">
+            <div class="modal-btns">
+                <button class="btn-confirm" onclick="verifyAdmin()"><i class="fas fa-sign-in-alt"></i> دخول</button>
+                <button class="btn-cancel" onclick="closeModal('loginModal')">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-modal-overlay" id="alertModal">
+        <div class="custom-modal-box">
+            <h3 id="alertTitle"><i class="fas fa-medal"></i> خطوة ممتازة!</h3>
+            <p id="alertMessage" style="margin-bottom: 20px; color: #ddd; line-height: 1.6;">لقد تم استلام طلبك. فريق المبيعات لدينا يجهز لك الآن عرضاً حصرياً وسنقوم بالتواصل معك في أقرب وقت عبر الواتساب أو اتصال هاتفي.</p>
+            <div class="modal-btns">
+                <button class="btn-confirm" onclick="closeModal('alertModal')"><i class="fas fa-check"></i> حسناً، بانتظاركم</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="wa-widget">
+        <div class="wa-options" id="waOptions">
+            <a href="https://wa.me/201221170884" class="wa-option" target="_blank"><i class="fab fa-whatsapp"></i> 0122 117 0884</a>
+            <a href="https://wa.me/201202042060" class="wa-option" target="_blank"><i class="fab fa-whatsapp"></i> 0120 204 2060</a>
+            <a href="https://wa.me/201222616311" class="wa-option" target="_blank"><i class="fab fa-whatsapp"></i> 0122 261 6311</a>
+        </div>
+        <button class="floating-wa-btn" onclick="document.getElementById('waOptions').classList.toggle('show')"><i class="fab fa-whatsapp"></i></button>
+    </div>
+
+    <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo(0,0)"><i class="fas fa-chevron-up"></i></button>
+
+    <section class="hero">
+        <h1 id="siteMainTitle">معرض الندى للسيارات</h1>
+        <p id="siteSubTitle">نضع بين يديك مفاتيح الفخامة. بيع، شراء، استبدال، وأنظمة تقسيط بنكي ومباشر.</p>
+        
+        <div class="trust-badges">
+            <div class="badge"><i class="fas fa-shield-alt"></i><span>سيارات مفحوصة بضمان</span></div>
+            <div class="badge"><i class="fas fa-bolt"></i><span>استلام فوري للسيارة</span></div>
+            <div class="badge"><i class="fas fa-handshake"></i><span>أفضل سعر للاستبدال</span></div>
+        </div>
+
+        <div style="margin-top: 40px; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+            <a href="#gallery" class="btn"><i class="fas fa-search"></i> استعرض تشكيلة النخبة</a>
+            <a href="https://www.facebook.com/share/g/1HknLqPaFZ/" class="btn" style="background:#1877F2; color:white; box-shadow: 0 5px 20px rgba(24, 119, 242, 0.4);" target="_blank"><i class="fab fa-facebook-f"></i> انضم لعملائنا</a>
+        </div>
+    </section>
+
+    <section class="promo-section">
+        <h2>🔥 العرض الذهبي لعملاء الكاش 🔥</h2>
+        <div class="countdown">
+            <div class="time-box"><span id="days">00</span><p>أيام</p></div>
+            <div class="time-box"><span id="hours">00</span><p>ساعات</p></div>
+            <div class="time-box"><span id="minutes">00</span><p>دقائق</p></div>
+            <div class="time-box"><span id="seconds">00</span><p>ثواني</p></div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <h2 class="section-title">أحدث السيارات المتاحة بالمعرض</h2>
+        <div class="cars-grid" id="carsContainer">
+            <div class="car-card skeleton fade-up"><div class="skeleton-img"></div><div class="skeleton-text"></div><div class="skeleton-text" style="width:50%;"></div></div>
+            <div class="car-card skeleton fade-up"><div class="skeleton-img"></div><div class="skeleton-text"></div><div class="skeleton-text" style="width:50%;"></div></div>
+            <div class="car-card skeleton fade-up"><div class="skeleton-img"></div><div class="skeleton-text"></div><div class="skeleton-text" style="width:50%;"></div></div>
+        </div>
+    </section>
+
+    <section class="lead-section" id="leadSectionForm">
+        <div class="lead-overlay"></div>
+        <div class="lead-content">
+            <h2 style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 10px;">احجز تجربة قيادة مجانية</h2>
+            <p style="color: #ccc; margin-bottom: 25px; font-size: 1.1rem;">سجل بياناتك الآن، الأولوية لأسبقية الحجز للحصول على أفضل سعر متاح.</p>
+            <form id="leadForm" onsubmit="submitLead(event)">
+                <input type="text" id="leadName" placeholder="الاسم الكريم (ثلاثي يفضل)" required minlength="3">
+                <input type="tel" id="leadPhone" placeholder="رقم الهاتف (مثال: 010xxxxxxxx)" required pattern="^01[0125][0-9]{8}$" title="يرجى إدخال رقم هاتف مصري صحيح يبدأ بـ 01 ومكون من 11 رقم">
+                <button type="submit" class="btn" style="width: 100%;" id="submitLeadBtn"><i class="fas fa-paper-plane"></i> تأكيد الموعد وإرسال</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="footer-wrapper">
+        <div class="circle-container">
+            <svg viewBox="0 0 500 500" class="rotating-svg">
+                <defs><path id="textCirclePath" d="M 250, 440 A 190,190 0 1,1 250,60 A 190,190 0 1,1 250,440" /></defs>
+                <circle cx="250" cy="250" r="215" fill="none" stroke="rgba(229, 193, 88, 0.3)" stroke-width="4" />
+                <circle cx="250" cy="250" r="165" fill="none" stroke="rgba(229, 193, 88, 0.3)" stroke-width="4" />
+                <text><textPath href="#textCirclePath" startOffset="50%" text-anchor="middle" class="text-path-style">
+                    ALL RIGHTS RESERVED ®© DESIGNED & DEVELOPED BY <tspan class="name-highlight">MAHMOUD MOHAMED</tspan>
+                </textPath></text>
+            </svg>
+            <div class="center-prayer">
+                <span>ولا تنسونا من خالص دعائكم بظهر الغيب</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-trigger" onclick="openLoginModal()" title="نظام الإدارة المركزية">
+        <i class="fas fa-car-side"></i>
+        <i class="fas fa-key"></i>
+    </div>
+
+    <div class="custom-modal-overlay" id="adminDashboard">
+        <div class="admin-panel">
+            <div class="close-admin" onclick="closeModal('adminDashboard')">×</div>
+            <h2 style="color:var(--primary-color); margin-bottom: 20px; text-align:center;"><i class="fas fa-gem"></i> لوحة الإدارة (NADACAR CMS)</h2>
+            
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="switchTab('addTab')"><i class="fas fa-plus"></i> إضافة سيارة</button>
+                <button class="tab-btn" onclick="switchTab('manageTab')"><i class="fas fa-car"></i> السيارات</button>
+                <button class="tab-btn" onclick="switchTab('leadsTab')"><i class="fas fa-chart-pie"></i> الحجوزات</button>
+                <button class="tab-btn" onclick="switchTab('textControlTab')"><i class="fas fa-font"></i> نصوص الموقع</button>
+                <button class="tab-btn" onclick="switchTab('settingsTab')"><i class="fas fa-cogs"></i> المزامنة</button>
+            </div>
+
+            <div id="addTab" class="tab-content active">
+                <form class="admin-form" id="addCarForm" onsubmit="saveCarToSheet(event)">
+                    <input type="text" id="carTitle" placeholder="اسم وموديل السيارة (مثال: كيا سبورتاج 2024)" required>
+                    <input type="text" id="carPrice" placeholder="السعر أو نظام الدفع (مثال: 1,500,000 ج أو قسط 15,000)" required>
+                    <input type="text" id="carTags" placeholder="مزايا تسويقية مفصولة بفاصلة (مثال: فابريكا, استلام فوري, فتحة سقف)">
+                    <p style="margin-bottom: 5px; color: var(--primary-color); font-weight:bold;"><i class="fas fa-image"></i> الصورة (سيتم ضبط الجودة والأبعاد تلقائياً):</p>
+                    <input type="file" id="fileInput" accept="image/*" required onchange="compressAndPreviewImage(event)">
+                    <img id="imgPreview" class="image-preview">
+                    <input type="hidden" id="imageBase64">
+                    <button type="submit" id="saveCarBtn"><i class="fas fa-rocket"></i> نشر السيارة بالموقع فوراً</button>
+                </form>
+            </div>
+
+            <div id="manageTab" class="tab-content">
+                <div style="overflow-x: auto;">
+                    <table class="manage-table" id="manageTable">
+                        <thead><tr><th>صورة</th><th>السيارة</th><th>السعر</th><th>إجراء</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="leadsTab" class="tab-content">
+                <div class="crm-dashboard">
+                    <div class="stat-card"><h3>إجمالي الطلبات</h3><span id="statTotal">0</span></div>
+                    <div class="stat-card"><h3>طلبات اليوم</h3><span id="statToday">0</span></div>
+                    <div class="stat-card"><h3>معدل الاستجابة</h3><span>%100</span></div>
+                </div>
+                <input type="text" id="searchLeads" class="search-bar" placeholder="🔍 ابحث عن عميل بالاسم أو رقم الهاتف..." onkeyup="filterLeads()">
+                <div style="overflow-x: auto; max-height: 400px;">
+                    <table class="manage-table" id="leadsTable">
+                        <thead><tr><th>تاريخ الطلب</th><th>اسم العميل</th><th>رقم الهاتف</th><th>إجراء</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="textControlTab" class="tab-content">
+                <div class="admin-form">
+                    <h3 style="color:white; margin-bottom:15px;"><i class="fas fa-edit"></i> التحكم الديناميكي في محتوى الموقع</h3>
+                    <label style="color:var(--primary-color); font-weight:bold; display:block; margin-bottom:5px;">العنوان الرئيسي الكبير:</label>
+                    <input type="text" id="adminMainTitle" placeholder="معرض الندى للسيارات">
+                    <label style="color:var(--primary-color); font-weight:bold; display:block; margin-bottom:5px;">النص الفرعي للواجهة:</label>
+                    <textarea id="adminSubTitle" rows="2" placeholder="نضع بين يديك مفاتيح الفخامة..."></textarea>
+                    <label style="color:var(--primary-color); font-weight:bold; display:block; margin-bottom:5px;">شريط الأخبار المتحرك (الأعلى):</label>
+                    <textarea id="adminTicker" rows="3" placeholder="أقوى العروض..."></textarea>
+                    <button onclick="saveSiteTexts()" id="saveTextBtn"><i class="fas fa-sync-alt"></i> حفظ وتحديث الموقع فوراً</button>
+                </div>
+            </div>
+
+            <div id="settingsTab" class="tab-content">
+                <div class="admin-form">
+                    <h3 style="color:white; margin-bottom:15px;"><i class="fas fa-database"></i> رابط مزامنة جوجل (Google Apps Script)</h3>
+                    <input type="text" id="scriptUrlInput" placeholder="https://script.google.com/macros/s/.../exec">
+                    <button onclick="saveSettings()"><i class="fas fa-link"></i> تأكيد وحفظ الربط</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-modal-overlay" id="confirmModal">
+        <div class="custom-modal-box">
+            <h3 style="color:#dc3545;"><i class="fas fa-exclamation-triangle"></i> إزالة السيارة</h3>
+            <p style="margin-bottom: 20px; color:#ddd;">هل أنت متأكد من حذف هذه السيارة نهائياً من الموقع؟</p>
+            <div class="modal-btns">
+                <button class="btn-confirm" style="background:#dc3545; color:white;" id="confirmDeleteBtn"><i class="fas fa-trash"></i> نعم، احذفها</button>
+                <button class="btn-cancel" onclick="closeModal('confirmModal')">تراجع</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let APPS_SCRIPT_URL = localStorage.getItem('appScriptUrl') || ""; 
+        const REQUEST_TIMEOUT = 12000;
+        
+        // تأمين الصور: صورة فاخرة بديلة تظهر في حال تعطل رابط الصورة الأصلية
+        const DEFAULT_FALLBACK_IMG = "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80"; 
+
+        // داتا السيارات التسويقية الفخمة (تظهر في غياب قاعدة البيانات وتستخدم كأداة بيع)
+        const DEFAULT_MARKETING_CARS = [
+            { id: 1, title: "مرسيدس C180 AMG - كحلي", price: "متاح تقسيط مباشر", tags: "فابريكا بالكامل,أعلى فئة,صيانة توكيل", image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80", isHot: true },
+            { id: 2, title: "BMW 740Li - أسود ملكي", price: "أفضل سعر كاش", tags: "رفاهية مطلقة,Long Wheelbase,حالة نادرة", image: "https://images.unsplash.com/photo-1555353540-64fd3b3ee369?auto=format&fit=crop&w=800&q=80", isHot: false },
+            { id: 3, title: "كيا سبورتاج 2024 - أحمر ناري", price: "مقدم يبدأ من 30%", tags: "استلام فوري,زيرو,بانوراما", image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fd?auto=format&fit=crop&w=800&q=80", isHot: true },
+            { id: 4, title: "همر H3 - أحمر", price: "كاش أو تقسيط", tags: "وحش المهام الصعبة,دفع رباعي,قوة جبارة", image: "https://images.unsplash.com/photo-1506015391300-415214844018?auto=format&fit=crop&w=800&q=80", isHot: false },
+            { id: 5, title: "ميتسوبيشي لانسر بومة - أبيض", price: "كاش لقطة", tags: "اعتمادية يابانية,اقتصادي,استعمال راقي", image: "https://images.unsplash.com/photo-1605810731671-50e501538356?auto=format&fit=crop&w=800&q=80", isHot: false }
+        ];
+
+        const fetchWithTimeout = async (url, options = {}) => {
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
+            try {
+                const response = await fetch(url, { ...options, signal: controller.signal });
+                clearTimeout(id); return response;
+            } catch (err) { clearTimeout(id); throw err; }
+        };
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`; toast.innerHTML = message;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 4000);
+        }
+
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        }
+
+        // --- الميزات التسويقية (FOMO & Exit Intent) ---
+        function triggerFomo() {
+            const names = ["أحمد م.", "خالد س.", "محمود ي.", "علي ف.", "يوسف ع.", "مصطفى ر."];
+            const cars = ["كيا سبورتاج", "مرسيدس C180", "هيونداي توسان", "BMW 740Li", "تويوتا كورولا", "نيسان صني"];
+            const popup = document.getElementById('fomoPopup');
+            
+            setInterval(() => {
+                if(Math.random() > 0.3) {
+                    document.getElementById('fomoName').innerText = names[Math.floor(Math.random() * names.length)];
+                    document.getElementById('fomoCar').innerText = cars[Math.floor(Math.random() * cars.length)];
+                    document.getElementById('fomoTime').innerText = Math.floor(Math.random() * 15) + 1;
+                    
+                    popup.classList.add('show');
+                    setTimeout(() => { popup.classList.remove('show'); }, 6000); 
+                }
+            }, 35000); 
+        }
+
+        function setupExitIntent() {
+            document.addEventListener('mouseleave', function(e) {
+                if(e.clientY < 0 && !sessionStorage.getItem('exitIntentShown')) {
+                    document.getElementById('exitModal').classList.add('active');
+                    sessionStorage.setItem('exitIntentShown', 'true');
+                }
+            });
+        }
+        // ---------------------------------------------
+
+        function openLoginModal() { document.getElementById('loginModal').classList.add('active'); document.getElementById('adminPassword').value = ''; setTimeout(()=> document.getElementById('adminPassword').focus(), 100); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        
+        function verifyAdmin() {
+            if(document.getElementById('adminPassword').value === "HajjOsama2030") {
+                closeModal('loginModal'); document.getElementById('adminDashboard').classList.add('active');
+                document.getElementById('scriptUrlInput').value = APPS_SCRIPT_URL; 
+                fetchCars(); fetchLeads(); fetchAdminTexts(); showToast("مرحباً بك في لوحة الإدارة");
+            } else { showToast("رمز المرور غير صحيح!", "error"); }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+            if(tabId === 'leadsTab') fetchLeads();
+            if(tabId === 'textControlTab') fetchAdminTexts();
+        }
+
+        function saveSettings() {
+            const url = document.getElementById('scriptUrlInput').value.trim();
+            if(!url || !url.startsWith("https://script.google.com/")) { showToast("الرابط غير صحيح!", "error"); return; }
+            localStorage.setItem('appScriptUrl', url); APPS_SCRIPT_URL = url;
+            showToast("تم ربط قاعدة البيانات بنجاح!"); fetchSiteData();
+        }
+
+        async function fetchSiteData(silent = false) {
+            if(!APPS_SCRIPT_URL) {
+                document.getElementById('siteMainTitle').innerHTML = "معرض الندى للسيارات";
+                document.getElementById('siteTicker').innerHTML = "🌟 أقوى العروض وأفضل أنظمة التقسيط تجدونها لدينا، استلم سيارتك اليوم! 🌟";
+                fetchCars(silent); return;
+            }
+            try {
+                const response = await fetchWithTimeout(APPS_SCRIPT_URL + "?action=getTexts");
+                const texts = await response.json();
+                if(texts.mainTitle) document.getElementById('siteMainTitle').innerHTML = texts.mainTitle;
+                if(texts.subTitle) document.getElementById('siteSubTitle').innerHTML = texts.subTitle;
+                if(texts.ticker) document.getElementById('siteTicker').innerHTML = texts.ticker;
+                document.getElementById('syncIndicator').classList.add('active');
+            } catch(e) { if(!silent) console.error("Error fetching texts"); }
+            fetchCars(silent);
+        }
+
+        async function fetchAdminTexts() {
+            if(!APPS_SCRIPT_URL) return;
+            try {
+                const response = await fetchWithTimeout(APPS_SCRIPT_URL + "?action=getTexts");
+                const texts = await response.json();
+                document.getElementById('adminMainTitle').value = texts.mainTitle || "";
+                document.getElementById('adminSubTitle').value = texts.subTitle || "";
+                document.getElementById('adminTicker').value = texts.ticker || "";
+            } catch(e) { showToast("تعذر جلب النصوص", "error"); }
+        }
+
+        async function saveSiteTexts() {
+            if(!APPS_SCRIPT_URL) { showToast("قم بضبط الربط من التبويب أولاً!", "error"); return; }
+            const btn = document.getElementById('saveTextBtn');
+            btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> جاري الحفظ..."; btn.disabled = true;
+            const payload = { action: "updateTexts", mainTitle: document.getElementById('adminMainTitle').value, subTitle: document.getElementById('adminSubTitle').value, ticker: document.getElementById('adminTicker').value };
+            try {
+                await fetchWithTimeout(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                showToast("تم تحديث نصوص الموقع!"); setTimeout(() => fetchSiteData(), 1000); 
+            } catch(e) { showToast("حدث خطأ", "error"); }
+            btn.innerHTML = '<i class="fas fa-sync-alt"></i> حفظ وتحديث الموقع فوراً'; btn.disabled = false;
+        }
+
+        function renderCarsUI(dataList) {
+            const container = document.getElementById('carsContainer');
+            const tbody = document.querySelector('#manageTable tbody');
+            container.innerHTML = ''; tbody.innerHTML = '';
+            
+            // 🚀 الخوارزمية الصارمة لمنع التكرار نهائياً (Duplicate Eliminator)
+            const uniqueCars = [];
+            const seenTitles = new Set();
+            dataList.forEach(car => {
+                // نفلتر بناءً على اسم السيارة لضمان عدم وجود نسختين لنفس السيارة في المعرض
+                const carKey = car.title.trim().toLowerCase();
+                if (!seenTitles.has(carKey)) {
+                    seenTitles.add(carKey);
+                    uniqueCars.push(car);
+                }
+            });
+
+            // عرض السيارات المفلترة فقط
+            uniqueCars.forEach((car, index) => {
+                const tagsHtml = car.tags ? car.tags.split(',').map(tag => `<span>${tag.trim()}</span>`).join('') : '';
+                const ribbon = (car.isHot || index < 2) ? `<div class="car-ribbon ${index===0?'vip':''}">🔥 ${index===0?'VIP':'الأكثر مبيعاً'}</div>` : '';
+                
+                container.innerHTML += `
+                    <div class="car-card fade-up">
+                        ${ribbon}
+                        <div class="car-img-wrapper">
+                            <div class="verified-badge"><i class="fas fa-check-circle"></i> تم الفحص</div>
+                            <img src="${car.image}" alt="${car.title}" loading="lazy" onerror="this.src='${DEFAULT_FALLBACK_IMG}'; this.onerror=null;">
+                        </div>
+                        <div class="car-info">
+                            <h4>${car.title}</h4>
+                            <p style="color: #fff; font-weight: bold; margin-bottom: 10px; font-size: 1.2rem;">${car.price}</p>
+                            <div class="car-tags">${tagsHtml}</div>
+                            <a href="#leadSectionForm" onclick="document.getElementById('leadName').focus()" class="btn" style="width:100%; margin-top:20px; padding:10px; font-size:1rem;"><i class="fas fa-key"></i> احجزها الآن</a>
+                        </div>
+                    </div>`;
+                    
+                if(car.row) {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td><img src="${car.image}" alt="car" onerror="this.src='${DEFAULT_FALLBACK_IMG}'; this.onerror=null;"></td>
+                            <td style="font-weight:bold;">${car.title}</td>
+                            <td>${car.price}</td>
+                            <td><button class="action-btn del-btn" onclick="openConfirmDelete(${car.row})" title="حذف"><i class="fas fa-trash"></i></button></td>
+                        </tr>`;
+                }
+            });
+            initScrollAnimations();
+        }
+
+        async function fetchCars(silent = false) {
+            if(!APPS_SCRIPT_URL) { renderCarsUI(DEFAULT_MARKETING_CARS); return; }
+            try {
+                const response = await fetchWithTimeout(APPS_SCRIPT_URL + "?action=getCars");
+                const data = await response.json();
+                if(data.length === 0) {
+                    document.getElementById('carsContainer').innerHTML = '<h3 style="grid-column: 1/-1; text-align: center; color: #fff;">جاري تحديث قائمة السيارات...</h3>';
+                    document.querySelector('#manageTable tbody').innerHTML = '<tr><td colspan="4">لا توجد سيارات مضافة.</td></tr>'; return;
+                }
+                renderCarsUI(data.reverse()); // Reverse to show newest first
+            } catch (error) {
+                renderCarsUI(DEFAULT_MARKETING_CARS);
+                if(!silent) showToast("تم تحميل سيارات العرض المؤقتة لانقطاع الاتصال بالقاعدة", "error");
+            }
+        }
+
+        async function fetchLeads() {
+            if(!APPS_SCRIPT_URL) return;
+            try {
+                const response = await fetchWithTimeout(APPS_SCRIPT_URL + "?action=getLeads");
+                const data = await response.json();
+                const tbody = document.querySelector('#leadsTable tbody'); tbody.innerHTML = '';
+                document.getElementById('statTotal').innerText = data.length;
+                let todayCount = 0; const todayStr = new Date().toLocaleDateString('en-GB');
+
+                if(data.length === 0) { tbody.innerHTML = `<tr><td colspan="4">لا توجد طلبات حجز بعد.</td></tr>`; return; }
+
+                data.reverse().forEach(lead => {
+                    const dateObj = new Date(lead.date);
+                    if(dateObj.toLocaleDateString('en-GB') === todayStr) todayCount++;
+                    const formattedDate = dateObj.toLocaleDateString('ar-EG') + '<br><small style="color:#aaa;">' + dateObj.toLocaleTimeString('ar-EG') + '</small>';
+                    const cleanPhone = lead.phone.replace(/[^0-9]/g, '');
+                    const waPhone = cleanPhone.startsWith('0') ? '2' + cleanPhone : '20' + cleanPhone;
+                    const waLink = `https://wa.me/${waPhone}?text=أهلاً بك يا ${lead.name.split(' ')[0]}، نتواصل معك من معرض الندى للسيارات بخصوص طلب الحجز...`; 
+                    tbody.innerHTML += `
+                        <tr class="lead-row">
+                            <td style="font-size:0.9rem;">${formattedDate}</td>
+                            <td style="font-weight:bold;" class="lead-name">${lead.name}</td>
+                            <td style="direction:ltr;" class="lead-phone">${lead.phone}</td>
+                            <td><a href="${waLink}" target="_blank" class="action-btn" style="background:#25d366; color:white; text-decoration:none;"><i class="fab fa-whatsapp"></i> تواصل</a></td>
+                        </tr>`;
+                });
+                document.getElementById('statToday').innerText = todayCount;
+            } catch (error) { showToast("حدث خطأ أثناء جلب الطلبات", "error"); }
+        }
+
+        function filterLeads() {
+            let input = document.getElementById("searchLeads").value.toUpperCase();
+            let rows = document.querySelectorAll(".lead-row");
+            rows.forEach(row => {
+                let name = row.querySelector(".lead-name").innerText.toUpperCase();
+                let phone = row.querySelector(".lead-phone").innerText.toUpperCase();
+                row.style.display = (name.indexOf(input) > -1 || phone.indexOf(input) > -1) ? "" : "none";
+            });
+        }
+
+        function compressAndPreviewImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            if(file.size > 10 * 1024 * 1024) { showToast("الصورة كبيرة جداً، أقصى حد 10 ميجا", "error"); event.target.value = ''; return; }
+
+            const reader = new FileReader(); reader.readAsDataURL(file);
+            reader.onload = function(e) {
+                const img = new Image(); img.src = e.target.result;
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 1024, MAX_HEIGHT = 1024;
+                    let width = img.width, height = img.height;
+                    if (width > height) { if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; } } 
+                    else { if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; } }
+
+                    canvas.width = width; canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7); 
+                    document.getElementById('imgPreview').src = compressedBase64;
+                    document.getElementById('imgPreview').style.display = 'block';
+                    document.getElementById('imageBase64').value = compressedBase64;
+                }
+            }
+        }
+
+        async function saveCarToSheet(e) {
+            e.preventDefault();
+            if(!APPS_SCRIPT_URL) { showToast("قم بضبط المزامنة من التبويب أولاً!", "error"); return; }
+            const base64Img = document.getElementById('imageBase64').value;
+            if(!base64Img) { showToast("الرجاء انتظار تحميل الصورة", "error"); return; }
+
+            const btn = document.getElementById('saveCarBtn');
+            btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> جاري الرفع والنشر..."; btn.disabled = true;
+            const payload = { action: "addCar", title: document.getElementById('carTitle').value, price: document.getElementById('carPrice').value, tags: document.getElementById('carTags').value, image: base64Img };
+
+            try {
+                await fetchWithTimeout(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                showToast("تم النشر! السيارة الآن متاحة.");
+                document.getElementById('addCarForm').reset(); document.getElementById('imgPreview').style.display = 'none'; document.getElementById('imageBase64').value = '';
+                setTimeout(() => fetchCars(), 1000); 
+            } catch(e) { showToast("حدث خطأ أثناء الرفع", "error"); }
+            btn.innerHTML = '<i class="fas fa-rocket"></i> نشر السيارة بالموقع فوراً'; btn.disabled = false;
+        }
+
+        let rowToDelete = null;
+        function openConfirmDelete(row) { rowToDelete = row; document.getElementById('confirmModal').classList.add('active'); }
+        document.getElementById('confirmDeleteBtn').addEventListener('click', async function() {
+            closeModal('confirmModal');
+            if(!rowToDelete || !APPS_SCRIPT_URL) return; showToast("جاري الحذف...");
+            try {
+                await fetchWithTimeout(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: "deleteCar", row: rowToDelete }) });
+                showToast("تم الحذف بنجاح."); setTimeout(() => fetchCars(), 1000);
+            } catch(e) { showToast("خطأ في الاتصال", "error"); }
+        });
+
+        async function submitLead(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitLeadBtn');
+            const nameInput = document.getElementById('leadName').value;
+            const phoneInput = document.getElementById('leadPhone').value;
+
+            if(!APPS_SCRIPT_URL) { 
+                document.getElementById('alertModal').classList.add('active');
+                document.getElementById('leadForm').reset(); return;
+            }
+            
+            btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> لحظات من فضلك..."; btn.disabled = true;
+            try {
+                await fetchWithTimeout(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: "addLead", name: nameInput, phone: phoneInput }) });
+                document.getElementById('alertModal').classList.add('active'); document.getElementById('leadForm').reset();
+                if(document.getElementById('adminDashboard').classList.contains('active')) fetchLeads(); 
+            } catch(e) { showToast("يرجى المحاولة مجدداً", "error"); }
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> تأكيد الموعد وإرسال'; btn.disabled = false;
+        }
+
+        setInterval(function() {
+            let distance = (new Date().getTime() + (5*24*60*60*1000)) - new Date().getTime(); 
+            document.getElementById("days").innerText = "04";
+            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }, 1000);
+
+        setInterval(() => {
+            if(APPS_SCRIPT_URL && !document.getElementById('adminDashboard').classList.contains('active')) fetchSiteData(true); 
+        }, 60000);
+
+        window.onscroll = function() {
+            const btn = document.getElementById("scrollTopBtn");
+            if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) { btn.classList.add("show"); } else { btn.classList.remove("show"); }
+        };
+
+        window.onload = function() { 
+            fetchSiteData(); 
+            initScrollAnimations();
+            triggerFomo();      // تفعيل نظام الإثبات الاجتماعي لزيادة المبيعات
+            setupExitIntent();  // تفعيل نظام اقتناص المغادرين
+            
+            document.addEventListener('click', function(event) {
+                const waWidget = document.querySelector('.wa-widget');
+                if (!waWidget.contains(event.target)) { document.getElementById('waOptions').classList.remove('show'); }
+            });
+        };
+    </script>
+</body>
+</html>
+
