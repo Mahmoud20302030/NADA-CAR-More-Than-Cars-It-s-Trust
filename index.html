@@ -331,7 +331,7 @@
                 <input type="text" id="searchLeads" class="search-bar" placeholder="🔍 ابحث عن عميل بالاسم أو رقم الهاتف..." onkeyup="filterLeads()">
                 <div style="overflow-x: auto; max-height: 400px;">
                     <table class="manage-table" id="leadsTable">
-                        <thead><tr><th>التاريخ</th><th>اسم العميل</th><th>رقم الهاتف</th><th>إجراء</th></tr></thead>
+                        <thead><tr><th>م</th><th>التاريخ</th><th>اسم العميل</th><th>رقم الهاتف</th><th>إجراء</th></tr></thead>
                         <tbody></tbody>
                     </table>
                 </div>
@@ -403,7 +403,6 @@
 
     <script>
         let APPS_SCRIPT_URL = localStorage.getItem('appScriptUrl') || ""; 
-        // صورة احتياطية تظهر عند فشل جلب صورة السيارة الأصيلة لحفظ المظهر
         const DEFAULT_FALLBACK_IMG = "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=600&q=80";
 
         function showToast(message, type = 'success') {
@@ -447,11 +446,9 @@
             fetchSiteData();
         }
 
-        // --- نظام التحكم في النصوص (CMS) مع كاسر الكاش لـ GitHub ---
         async function fetchSiteData() {
             if(!APPS_SCRIPT_URL) return;
             try {
-                // إضافة متغير زمني لمنع متصفحات و GitHub من عمل Cache للمعلومات القديمة
                 const response = await fetch(APPS_SCRIPT_URL + "?action=getTexts&t=" + new Date().getTime());
                 const texts = await response.json();
                 if(texts.mainTitle) document.getElementById('siteMainTitle').innerHTML = texts.mainTitle;
@@ -484,15 +481,14 @@
                 ticker: document.getElementById('adminTicker').value
             };
             try {
-                // استخدام text/plain لتخطي حظر متصفحات الجوال والـ CORS Error
                 await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
                 showToast("تم تحديث نصوص الموقع بنجاح!");
                 fetchSiteData(); 
             } catch(e) { showToast("حدث خطأ", "error"); }
-            btn.innerHTML = '<i class="fas fa-save"></i> حفظ وتطبيق على الموقع فوراً'; btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-save"></i> حفظ وتطبيق على الموقع فوراً';
+            btn.disabled = false;
         }
 
-        // --- السيارات وعرضها (إصلاح تكرار الصور) ---
         async function fetchCars() {
             if(!APPS_SCRIPT_URL) return;
             try {
@@ -500,16 +496,15 @@
                 const data = await response.json();
                 const container = document.getElementById('carsContainer');
                 const tbody = document.querySelector('#manageTable tbody');
-                
                 if(!data || data.length === 0) {
                     container.innerHTML = '<h3 style="grid-column: 1/-1; text-align: center; color: #fff;">لا توجد سيارات مضافة حالياً.</h3>';
                     tbody.innerHTML = '<tr><td colspan="4">لا توجد سيارات.</td></tr>';
                     return;
                 }
                 
-                container.innerHTML = ''; tbody.innerHTML = '';
+                container.innerHTML = '';
+                tbody.innerHTML = '';
 
-                // خوارزمية منع التكرار: التأكد من عدم عرض سيارتين بنفس الاسم
                 const uniqueCars = [];
                 const seenTitles = new Set();
                 data.reverse().forEach(car => {
@@ -519,7 +514,6 @@
                         uniqueCars.push(car);
                     }
                 });
-
                 uniqueCars.forEach(car => {
                     const tagsHtml = car.tags ? car.tags.split(',').map(tag => `<span>${tag.trim()}</span>`).join('') : '';
                     const safeImageStr = car.image || DEFAULT_FALLBACK_IMG;
@@ -536,7 +530,6 @@
                             </div>
                         </div>`;
                     
-                    // الهروب الذكي للنصوص لتفادي كسر أكواد التعديل في النافذة المنبثقة
                     const safeTitle = car.title ? car.title.replace(/'/g, "\\'") : '';
                     const safePrice = car.price ? car.price.replace(/'/g, "\\'") : '';
                     const safeTags = car.tags ? car.tags.replace(/'/g, "\\'") : '';
@@ -555,19 +548,15 @@
             } catch (error) { console.error(error); }
         }
 
-        // --- نظام التعديل الجديد (Edit Feature) ---
         function openEditModal(row, title, price, tags, image) {
             document.getElementById('editCarRow').value = row;
             document.getElementById('editCarTitle').value = title;
             document.getElementById('editCarPrice').value = price;
             document.getElementById('editCarTags').value = tags;
-            
             document.getElementById('editImgPreview').src = image;
             document.getElementById('editImgPreview').style.display = 'block';
-            
             document.getElementById('editFileInput').value = '';
             document.getElementById('editImageBase64').value = image; 
-            
             document.getElementById('editCarModal').classList.add('active');
         }
 
@@ -576,7 +565,6 @@
             if(!APPS_SCRIPT_URL) return;
             const btn = document.getElementById('submitEditBtn');
             btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> جاري الحفظ..."; btn.disabled = true;
-            
             const payload = { 
                 action: "editCar", 
                 row: document.getElementById('editCarRow').value,
@@ -585,7 +573,6 @@
                 tags: document.getElementById('editCarTags').value, 
                 image: document.getElementById('editImageBase64').value 
             };
-
             try {
                 await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
                 showToast("تم تعديل السيارة بنجاح!");
@@ -593,10 +580,11 @@
                 setTimeout(() => fetchCars(), 1000); 
             } catch(e) { showToast("حدث خطأ أثناء التعديل", "error"); }
             
-            btn.innerHTML = '<i class="fas fa-save"></i> حفظ التعديلات'; btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-save"></i> حفظ التعديلات';
+            btn.disabled = false;
         }
 
-        // --- الحجوزات (حل مشكلة عدم ظهور الإحصائيات) ---
+        // --- إصلاح وتطوير جدول الحجوزات (المفهرس) ---
         async function fetchLeads() {
             if(!APPS_SCRIPT_URL) return;
             try {
@@ -607,48 +595,62 @@
                 
                 document.getElementById('statTotal').innerText = data.length;
                 let todayCount = 0;
-                const now = new Date(); // مستشعر التاريخ الدقيق للمقارنة السليمة
+                const now = new Date();
 
-                if(data.length === 0) { tbody.innerHTML = `<tr><td colspan="4">لا توجد طلبات.</td></tr>`; return; }
+                // تحديث الـ colspan ليتناسب مع عمود الترقيم (م) الجديد
+                if(data.length === 0) { tbody.innerHTML = `<tr><td colspan="5">لا توجد طلبات.</td></tr>`; return; }
 
-                data.reverse().forEach(lead => {
-                    let formattedDate = lead.date;
+                data.reverse().forEach((lead, index) => {
+                    // حماية الكود من الانهيار إذا كانت هناك بيانات فارغة
+                    if(!lead) return; 
+
+                    let formattedDate = lead.date || 'غير محدد';
                     try {
-                        const dateObj = new Date(lead.date);
-                        if (!isNaN(dateObj)) {
-                            formattedDate = dateObj.toLocaleDateString('ar-EG') + '<br><small style="color:#aaa;">' + dateObj.toLocaleTimeString('ar-EG') + '</small>';
-                            // التأكد إذا كان الحجز قد تم اليوم (يصلح العطل السابق بالعداد)
-                            if (dateObj.toDateString() === now.toDateString()) { todayCount++; }
+                        if(lead.date) {
+                            const dateObj = new Date(lead.date);
+                            if (!isNaN(dateObj)) {
+                                formattedDate = dateObj.toLocaleDateString('ar-EG') + '<br><small style="color:#aaa;">' + dateObj.toLocaleTimeString('ar-EG') + '</small>';
+                                if (dateObj.toDateString() === now.toDateString()) { todayCount++; }
+                            }
                         }
                     } catch(e) {}
 
-                    const cleanPhone = lead.phone.replace(/[^0-9]/g, '');
+                    // المعالجة الآمنة لرقم الهاتف لمنع توقف حلقة التكرار (الخطأ الأصلي)
+                    const safeName = lead.name || 'غير محدد';
+                    const safePhone = (lead.phone || '').toString();
+                    const cleanPhone = safePhone.replace(/[^0-9]/g, '');
                     const waPhone = cleanPhone.startsWith('0') ? '2' + cleanPhone : '20' + cleanPhone;
-                    const waLink = `https://wa.me/${waPhone}`; 
+                    const waLink = cleanPhone ? `https://wa.me/${waPhone}` : '#'; 
                     
                     tbody.innerHTML += `
                         <tr class="lead-row">
+                            <td style="font-weight:bold; color:var(--primary-color);">${index + 1}</td>
                             <td style="font-size:0.9rem;">${formattedDate}</td>
-                            <td style="font-weight:bold;" class="lead-name">${lead.name}</td>
-                            <td style="direction:ltr;" class="lead-phone">${lead.phone}</td>
-                            <td><a href="${waLink}" target="_blank" class="action-btn" style="background:#25d366; color:white; text-decoration:none;"><i class="fab fa-whatsapp"></i> تواصل</a></td>
+                            <td style="font-weight:bold;" class="lead-name">${safeName}</td>
+                            <td style="direction:ltr;" class="lead-phone">${safePhone}</td>
+                            <td><a href="${waLink}" target="_blank" class="action-btn" style="background:#25d366; color:white; text-decoration:none; display:inline-block; padding: 6px 12px; border-radius: 6px;"><i class="fab fa-whatsapp"></i> تواصل</a></td>
                         </tr>`;
                 });
                 document.getElementById('statToday').innerText = todayCount;
-            } catch (error) {}
+            } catch (error) {
+                console.error("خطأ في جلب الحجوزات:", error);
+            }
         }
 
         function filterLeads() {
-            let input = document.getElementById("searchLeads").value.toUpperCase();
+            let input = document.getElementById("searchLeads").value.trim().toUpperCase();
             let rows = document.querySelectorAll(".lead-row");
             rows.forEach(row => {
                 let name = row.querySelector(".lead-name").innerText.toUpperCase();
                 let phone = row.querySelector(".lead-phone").innerText.toUpperCase();
-                if (name.indexOf(input) > -1 || phone.indexOf(input) > -1) { row.style.display = ""; } else { row.style.display = "none"; }
+                if (name.indexOf(input) > -1 || phone.indexOf(input) > -1) { 
+                    row.style.display = ""; 
+                } else { 
+                    row.style.display = "none"; 
+                }
             });
         }
 
-        // --- خوارزمية ضغط الصور القاسية (لحل مشكلة رفض جوجل للصور الطويلة نهائياً) ---
         function compressImageCore(file, previewId, base64Id) {
             if (!file) return;
             const reader = new FileReader();
@@ -658,20 +660,17 @@
                 img.src = e.target.result;
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    // التصغير العنيف إلى 450 بكسل يضمن عدم تجاوز الحد المسموح في جوجل شيت!
-                    const MAX_DIM = 450; 
+                    const MAX_DIM = 450;
                     let w = img.width; let h = img.height;
                     
                     if (w > h) { if (w > MAX_DIM) { h *= MAX_DIM / w; w = MAX_DIM; } }
                     else { if (h > MAX_DIM) { w *= MAX_DIM / h; h = MAX_DIM; } }
                     
-                    canvas.width = w; canvas.height = h;
+                    canvas.width = w;
+                    canvas.height = h;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, w, h);
-                    
-                    // جودة 0.35 خفيفة جداً للموبايل وسريعة وتمنع أي فشل أثناء الرفع
-                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.35); 
-                    
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.35);
                     document.getElementById(previewId).src = compressedBase64;
                     document.getElementById(previewId).style.display = 'block';
                     document.getElementById(base64Id).value = compressedBase64;
@@ -690,7 +689,6 @@
 
             const btn = document.getElementById('saveCarBtn');
             btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> جاري النشر..."; btn.disabled = true;
-            
             const payload = { 
                 action: "addCar", 
                 title: document.getElementById('carTitle').value, 
@@ -705,10 +703,11 @@
                 document.getElementById('addCarForm').reset();
                 document.getElementById('imgPreview').style.display = 'none';
                 document.getElementById('imageBase64').value = '';
-                setTimeout(() => fetchCars(), 1000); 
+                setTimeout(() => fetchCars(), 1000);
             } catch(e) { showToast("حدث خطأ أثناء الرفع", "error"); }
             
-            btn.innerHTML = '<i class="fas fa-rocket"></i> إطلاق السيارة'; btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-rocket"></i> إطلاق السيارة';
+            btn.disabled = false;
         }
 
         let rowToDelete = null;
@@ -729,9 +728,11 @@
             const btn = document.getElementById('submitLeadBtn');
             if(!APPS_SCRIPT_URL) { 
                 document.getElementById('alertModal').classList.add('active');
-                document.getElementById('leadForm').reset(); return;
+                document.getElementById('leadForm').reset();
+                return;
             }
-            btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> لحظات..."; btn.disabled = true;
+            btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> لحظات...";
+            btn.disabled = true;
             try {
                 await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: "addLead", name: document.getElementById('leadName').value, phone: document.getElementById('leadPhone').value }) });
                 document.getElementById('alertModal').classList.add('active');
@@ -749,7 +750,6 @@
             document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
         }, 1000);
 
-        // نظام الحفظ التلقائي (Auto-Sync) والمزامنة الحية لتحديث واجهة الموقع كل 45 ثانية
         setInterval(() => {
             if (APPS_SCRIPT_URL && !document.getElementById('adminDashboard').classList.contains('active')) {
                 fetchCars(); 
